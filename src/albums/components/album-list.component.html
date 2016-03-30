@@ -1,0 +1,6 @@
+<h2>Albums</h2>
+<ul>
+    <li *ngFor="#album of albums">
+        <a [routerLink]="['AlbumDetail', {id: album.id}]">{{album.name}}</a>
+    </li>    
+</ul>
