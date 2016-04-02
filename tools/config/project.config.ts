@@ -11,7 +11,7 @@ export class ProjectConfig extends SeedConfig {
     let additional_deps: InjectableDependency[] = [
       // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
-      {src: 'jquery/dist/jquery.min.js', inject: 'libs'},      
+      {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
       {src: 'materialize-css/dist/css/materialize.min.css', inject: true},
       {src: 'materialize-css/dist/js/materialize.min.js', inject: 'libs'},
     ];
