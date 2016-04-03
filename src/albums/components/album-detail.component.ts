@@ -7,7 +7,8 @@ import {AlbumsService} from '../services/albums.service';
 
 @Component({
     selector: 'album-detail',
-    templateUrl: 'albums/components/album-detail.component.html'
+    templateUrl: './album-detail.component.html',
+    moduleId: module.id
 })
 
 export class AlbumDetailComponent implements OnInit {

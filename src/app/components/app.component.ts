@@ -5,6 +5,7 @@ import {ToolbarComponent} from './toolbar.component';
 import {HomeComponent} from '../../home/components/home.component';
 import {AboutComponent} from '../../about/components/about.component';
 import {AlbumsComponent} from '../../albums/components/albums.component';
+import {BlogComponent} from '../../blog/components/blog.component';
 import {NameListService} from '../../shared/services/name-list.service';
 
 @Component({
@@ -18,5 +19,6 @@ import {NameListService} from '../../shared/services/name-list.service';
   { path: '/',      name: 'Home',  component: HomeComponent  },
   { path: '/about', name: 'About', component: AboutComponent },
   { path: '/albums/...', name: 'Albums', component: AlbumsComponent },
+  { path: '/blog/...', name: 'Blog', component: BlogComponent },
   ])
 export class AppComponent {}
