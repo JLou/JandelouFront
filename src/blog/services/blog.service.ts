@@ -19,7 +19,7 @@ export class BlogService {
             }
         );
     }
-    
+
     getPost(id:number) {
         return Promise.resolve(this.posts).then(
             posts => posts.filter(post => post.id === id)[0]
