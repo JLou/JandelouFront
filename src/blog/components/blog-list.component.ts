@@ -1,4 +1,5 @@
 import {Component, OnInit} from 'angular2/core';
+import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {BlogService} from '../services/blog.service';
 import {BlogPost} from '../blogpost';
@@ -6,7 +7,8 @@ import {BlogPost} from '../blogpost';
 @Component({
     selector: 'blog-list',
     moduleId: module.id,
-    templateUrl: './blog-list.component.html'
+    templateUrl: './blog-list.component.html',
+    directives: [ROUTER_DIRECTIVES]
 })
 
 export class BlogListComponent implements OnInit {

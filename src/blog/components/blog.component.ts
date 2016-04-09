@@ -3,6 +3,7 @@ import {ROUTER_DIRECTIVES, RouteConfig, RouterOutlet} from 'angular2/router';
 
 import {BlogService} from '../services/blog.service';
 import {BlogListComponent} from './blog-list.component';
+import {BlogPostDetailComponent} from './blog-detail.component';
 
 @Component({
     selector: 'blog',
@@ -13,7 +14,7 @@ import {BlogListComponent} from './blog-list.component';
 })
 @RouteConfig([
   {path:'/',    name: 'BlogList', component: BlogListComponent, useAsDefault:true},
-  //{path:'/:id', name: 'BlogDetail', component: AlbumDetailComponent},
+  {path:'/:id',    name: 'BlogPostDetail', component: BlogPostDetailComponent},
 ])
 export class BlogComponent {
 
