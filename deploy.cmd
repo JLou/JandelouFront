@@ -96,9 +96,9 @@ call :SelectNodeVersion
 :: 3. Install npm packages
 echo Install npm packages
 echo %DEPLOYMENT_TARGET%\package.json
-IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
+IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (
   
-  pushd "%DEPLOYMENT_TARGET%"
+  pushd "%DEPLOYMENT_SOURCE%"
   call !NPM_CMD! install
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
@@ -106,9 +106,9 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
 
 :: 4. Run gulp transformations
 echo 4. Running gulp !NPM_CMD! .\node_modules\.bin\gulp build.prod
-IF EXIST "%DEPLOYMENT_TARGET%\gulpfile.ts" (
+IF EXIST "%DEPLOYMENT_SOURCE%\gulpfile.ts" (
   echo Found gulpfile
-  pushd "%DEPLOYMENT_TARGET%"
+  pushd "%DEPLOYMENT_SOURCE%"
   call :ExecuteCmd !NPM_CMD! run build.prod
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
