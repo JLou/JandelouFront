@@ -104,7 +104,7 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
 
 :: 4. Run gulp transformations
 echo 4. running gulp :ExecuteCmd !NPM_CMD! .\node_modules\.bin\gulp build.prod
-IF EXIST "%DEPLOYMENT_TARGET%\gulpfile.js" (
+IF EXIST "%DEPLOYMENT_TARGET%\gulpfile.ts" (
   pushd "%DEPLOYMENT_TARGET%"
   call :ExecuteCmd !NPM_CMD! .\node_modules\.bin\gulp build.prod
   IF !ERRORLEVEL! NEQ 0 goto error
