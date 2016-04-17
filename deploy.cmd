@@ -96,6 +96,7 @@ call :SelectNodeVersion
 :: 3. Install npm packages
 echo Install npm packages
 IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
+  echo Found package.json
   pushd "%DEPLOYMENT_TARGET%"
   call !NPM_CMD! install
   IF !ERRORLEVEL! NEQ 0 goto error
