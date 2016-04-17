@@ -111,6 +111,8 @@ IF EXIST "%DEPLOYMENT_TARGET%\gulpfile.js" (
   popd
 )
 
+dir
+
 :: 1. KuduSync
 echo 5. KuduSync
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
