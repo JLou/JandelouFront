@@ -97,7 +97,7 @@ call :SelectNodeVersion
 echo Install npm packages
 IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   pushd "%DEPLOYMENT_TARGET%"
-  call :ExecuteCmd !NPM_CMD! install
+  call !NPM_CMD! install
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
@@ -107,14 +107,14 @@ echo 4. Running gulp !NPM_CMD! .\node_modules\.bin\gulp build.prod
 IF EXIST "%DEPLOYMENT_TARGET%\gulpfile.ts" (
   echo Found gulpfile
   pushd "%DEPLOYMENT_TARGET%"
-  call :ExecuteCmd !NPM_CMD! .\node_modules\.bin\gulp build.prod
+  call :ExecuteCmd !NPM_CMD! run build.prod
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
 
 dir
 
-:: 1. KuduSync
+:: 5. KuduSync
 echo 5. KuduSync
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
     call :ExecuteCmd "%KUDU_SYNC_CMD%" -v 50 -f "%DEPLOYMENT_SOURCE%\dist\prod" -t "%DEPLOYMENT_TARGET%" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.hg;.deployment;deploy.cmd"
