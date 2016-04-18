@@ -126,6 +126,11 @@ export class SeedConfig {
     packages: {
       angular2: { defaultExtension: false },
       rxjs: { defaultExtension: false }
+    },
+    map: {
+        'materialize-css': 'materialize-css',
+        'materialize': 'angular2-materialize',
+        'angular2-materialize': 'angular2-materialize'
     }
   };
 
