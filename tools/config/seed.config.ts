@@ -1,6 +1,5 @@
-import {readFileSync} from 'fs';
 import {argv} from 'yargs';
-import {normalize, join} from 'path';
+import {join} from 'path';
 import {InjectableDependency, Environments} from './seed.config.interfaces';
 
 export const ENVIRONMENTS: Environments = {
@@ -11,7 +10,7 @@ export const ENVIRONMENTS: Environments = {
 
 export class SeedConfig {
   PORT                 = argv['port']                        || 5555;
-  PROJECT_ROOT         = normalize(join(__dirname, '..'));
+  PROJECT_ROOT         = join(__dirname, '../..');
   ENV                  = getEnvironment();
   DEBUG                = argv['debug']                       || false;
   DOCS_PORT            = argv['docs-port']                   || 4003;
@@ -25,8 +24,9 @@ export class SeedConfig {
 
   APP_TITLE            = 'My Angular2 App';
 
-  APP_SRC              = 'src';
+  APP_SRC              = 'src/client';
   ASSETS_SRC           = `${this.APP_SRC}/assets`;
+  CSS_SRC              = `${this.APP_SRC}/css`;
 
   TOOLS_DIR            = 'tools';
   SEED_TASKS_DIR       = join(process.cwd(), this.TOOLS_DIR, 'tasks', 'seed');
@@ -38,7 +38,6 @@ export class SeedConfig {
   APP_DEST             = `${this.DIST_DIR}/${this.ENV}`;
   CSS_DEST             = `${this.APP_DEST}/css`;
   JS_DEST              = `${this.APP_DEST}/js`;
-  APP_ROOT             = this.ENV === 'dev' ? `${this.APP_BASE}${this.APP_DEST}/` : `${this.APP_BASE}`;
   VERSION              = appVersion();
 
   CSS_PROD_BUNDLE      = 'all.css';
@@ -48,13 +47,13 @@ export class SeedConfig {
   VERSION_NPM          = '2.14.2';
   VERSION_NODE         = '4.0.0';
 
-  NG2LINT_RULES        = customRules();
+  CODELYZER_RULES      = customRules();
 
   NPM_DEPENDENCIES: InjectableDependency[] = [
-    { src: 'systemjs/dist/system-polyfills.src.js', inject: 'shims' },
-    { src: 'reflect-metadata/Reflect.js', inject: 'shims' },
-    { src: 'es6-shim/es6-shim.js', inject: 'shims' },
-    { src: 'systemjs/dist/system.src.js', inject: 'shims' },
+    { src: 'systemjs/dist/system-polyfills.src.js', inject: 'shims', env: ENVIRONMENTS.DEVELOPMENT },
+    { src: 'reflect-metadata/Reflect.js', inject: 'shims', env: ENVIRONMENTS.DEVELOPMENT },
+    { src: 'es6-shim/es6-shim.js', inject: 'shims', env: ENVIRONMENTS.DEVELOPMENT },
+    { src: 'systemjs/dist/system.src.js', inject: 'shims', env: ENVIRONMENTS.DEVELOPMENT },
     { src: 'angular2/bundles/angular2-polyfills.js', inject: 'shims' },
     { src: 'rxjs/bundles/Rx.js', inject: 'libs', env: ENVIRONMENTS.DEVELOPMENT },
     { src: 'angular2/bundles/angular2.js', inject: 'libs', env: ENVIRONMENTS.DEVELOPMENT },
@@ -64,7 +63,7 @@ export class SeedConfig {
 
   // Declare local files that needs to be injected
   APP_ASSETS: InjectableDependency[] = [
-    { src: `${this.ASSETS_SRC}/main.css`, inject: true, vendor: false }
+    { src: `${this.CSS_SRC}/main.css`, inject: true, vendor: false }
   ];
 
 
@@ -120,10 +119,13 @@ export class SeedConfig {
       paths: {
         [this.BOOTSTRAP_MODULE]: `${this.APP_BASE}${this.BOOTSTRAP_MODULE}`,
         'angular2/*': `${this.APP_BASE}angular2/*`,
+        'rxjs/*': `${this.APP_BASE}rxjs/*`,
+        'app/*': `/app/*`,
         '*': `${this.APP_BASE}node_modules/*`
       },
       packages: {
         angular2: { defaultExtension: false },
+        rxjs: { defaultExtension: false },
         'materialize-css': {
               'main': 'dist/js/materialize'
           },
@@ -139,16 +141,18 @@ export class SeedConfig {
       }
     };
 
+
   SYSTEM_CONFIG = this.SYSTEM_CONFIG_DEV;
 
   SYSTEM_BUILDER_CONFIG = {
-      defaultJSExtensions: true,
-      paths: {
-        [`${this.TMP_DIR}/*`]: `${this.TMP_DIR}/*`,
-        '*': 'node_modules/*',
-        'angular2-materialize': 'node_modules/angular2-materialize/dist/index.js',
-      }
-    };
+    defaultJSExtensions: true,
+    packageConfigPaths: [join(this.PROJECT_ROOT, 'node_modules', '*', 'package.json')],
+    paths: {
+      [`${this.TMP_DIR}/*`]: `${this.TMP_DIR}/*`,
+      '*': 'node_modules/*',
+      'angular2-materialize': 'node_modules/angular2-materialize/dist/index.js'
+    }
+  };
 
   // ----------------
   // Autoprefixer configuration.
@@ -163,6 +167,23 @@ export class SeedConfig {
     'android >= 4.4',
     'bb >= 10'
   ];
+
+  // ----------------
+  // Browser Sync configuration.
+  BROWSER_SYNC_CONFIG: any = {
+    middleware: [require('connect-history-api-fallback')({index: `${this.APP_BASE}index.html`})],
+    port: this.PORT,
+    startPath: this.APP_BASE,
+    server: {
+      baseDir: `${this.DIST_DIR}/empty/`,
+      routes: {
+        [`${this.APP_BASE}${this.APP_DEST}`]: this.APP_DEST,
+        [`${this.APP_BASE}node_modules`]: 'node_modules',
+        [`${this.APP_BASE.replace(/\/$/,'')}`]: this.APP_DEST
+      }
+    }
+  };
+
   getEnvDependencies() {
     console.warn('The "getEnvDependencies" method is deprecated. Consider using "DEPENDENCIES" instead.');
     if (this.ENV === 'prod') {
@@ -197,12 +218,12 @@ export function normalizeDependencies(deps: InjectableDependency[]) {
 }
 
 function appVersion(): number|string {
-  var pkg = JSON.parse(readFileSync('package.json').toString());
+  var pkg = require('../../package.json');
   return pkg.version;
 }
 
 function customRules(): string[] {
-  var lintConf = JSON.parse(readFileSync('tslint.json').toString());
+  var lintConf = require('../../tslint.json');
   return lintConf.rulesDirectory;
 }
 
