@@ -115,34 +115,40 @@ export class SeedConfig {
   // ----------------
   // SystemsJS Configuration.
   protected SYSTEM_CONFIG_DEV = {
-    defaultJSExtensions: true,
-    packageConfigPaths: [`${this.APP_BASE}node_modules/*/package.json`],
-    paths: {
-      [this.BOOTSTRAP_MODULE]: `${this.APP_BASE}${this.BOOTSTRAP_MODULE}`,
-      'angular2/*': `${this.APP_BASE}angular2/*`,
-      'rxjs/*': `${this.APP_BASE}rxjs/*`,
-      '*': `${this.APP_BASE}node_modules/*`
-    },
-    packages: {
-      angular2: { defaultExtension: false },
-      rxjs: { defaultExtension: false }
-    },
-    map: {
-        'materialize-css': 'materialize-css',
-        'materialize': 'angular2-materialize',
-        'angular2-materialize': 'angular2-materialize'
-    }
-  };
+      defaultJSExtensions: true,
+      packageConfigPaths: [`${this.APP_BASE}node_modules/*/package.json`],
+      paths: {
+        [this.BOOTSTRAP_MODULE]: `${this.APP_BASE}${this.BOOTSTRAP_MODULE}`,
+        'angular2/*': `${this.APP_BASE}angular2/*`,
+        '*': `${this.APP_BASE}node_modules/*`
+      },
+      packages: {
+        angular2: { defaultExtension: false },
+        'materialize-css': {
+              'main': 'dist/js/materialize'
+          },
+          'materialize': {
+              'main': 'dist/materialize-directive',
+              'defaultExtension': 'js'
+          }
+      },
+      map: {
+          'materialize-css': 'node-modules/materialize-css',
+          'materialize': 'node_modules/angular2-materialize',
+          'angular2-materialize': 'node_modules/angular2-materialize'
+      }
+    };
 
   SYSTEM_CONFIG = this.SYSTEM_CONFIG_DEV;
 
   SYSTEM_BUILDER_CONFIG = {
-    defaultJSExtensions: true,
-    paths: {
-      [`${this.TMP_DIR}/*`]: `${this.TMP_DIR}/*`,
-      '*': 'node_modules/*'
-    }
-  };
+      defaultJSExtensions: true,
+      paths: {
+        [`${this.TMP_DIR}/*`]: `${this.TMP_DIR}/*`,
+        '*': 'node_modules/*',
+        'angular2-materialize': 'node_modules/angular2-materialize/dist/index.js',
+      }
+    };
 
   // ----------------
   // Autoprefixer configuration.
