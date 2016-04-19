@@ -40,8 +40,6 @@ export function serveCoverage() {
     openResource('http://localhost:' + COVERAGE_PORT + APP_BASE)
   );
 }
-<<<<<<< HEAD
-=======
 
 export function serveProd() {
   let root = resolve(process.cwd(), PROD_DEST);
@@ -56,4 +54,3 @@ export function serveProd() {
   );
 
 };
->>>>>>> upstream/master

@@ -121,6 +121,7 @@ export class SeedConfig {
         'angular2/*': `${this.APP_BASE}angular2/*`,
         'rxjs/*': `${this.APP_BASE}rxjs/*`,
         'app/*': `/app/*`,
+        'materialize/*': `${this.APP_BASE}node_modules/angular2-materialize`,
         '*': `${this.APP_BASE}node_modules/*`
       },
       packages: {
@@ -133,11 +134,6 @@ export class SeedConfig {
               'main': 'dist/materialize-directive',
               'defaultExtension': 'js'
           }
-      },
-      map: {
-          'materialize-css': 'node-modules/materialize-css',
-          'materialize': 'node_modules/angular2-materialize',
-          'angular2-materialize': 'node_modules/angular2-materialize'
       }
     };
 
@@ -151,7 +147,12 @@ export class SeedConfig {
       [`${this.TMP_DIR}/*`]: `${this.TMP_DIR}/*`,
       '*': 'node_modules/*',
       'angular2-materialize': 'node_modules/angular2-materialize/dist/index.js'
-    }
+    },
+      map: {
+          'materialize-css': 'materialize-css',
+          'materialize': 'angular2-materialize',
+          'angular2-materialize': 'angular2-materialize'
+      }
   };
 
   // ----------------

@@ -6,8 +6,7 @@ import {BlogPost} from '../blogpost';
 
 @Component({
     selector: 'blog-list',
-    moduleId: module.id,
-    templateUrl: './blog-list.component.html',
+    templateUrl: 'app/+blog/components/blog-list.component.html',
     directives: [ROUTER_DIRECTIVES]
 })
 

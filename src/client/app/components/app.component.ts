@@ -5,6 +5,8 @@ import {ToolbarComponent} from './toolbar.component';
 import {NameListService} from '../shared/index';
 import {HomeComponent} from '../+home/index';
 import {AboutComponent} from '../+about/index';
+import {AlbumsComponent} from '../+albums/components/albums.component';
+import {BlogComponent} from '../+blog/components/blog.component';
 
 @Component({
   selector: 'sd-app',
@@ -13,15 +15,9 @@ import {AboutComponent} from '../+about/index';
   directives: [ROUTER_DIRECTIVES, NavbarComponent, ToolbarComponent]
 })
 @RouteConfig([
-  {
-    path: '/',
-    name: 'Home',
-    component: HomeComponent
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: AboutComponent
-  }
-])
+  { path: '/',      name: 'Home',  component: HomeComponent  },
+  { path: '/about', name: 'About', component: AboutComponent },
+  { path: '/albums/...', name: 'Albums', component: AlbumsComponent },
+  { path: '/blog/...', name: 'Blog', component: BlogComponent },
+  ])
 export class AppComponent {}

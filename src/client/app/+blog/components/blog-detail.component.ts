@@ -6,8 +6,7 @@ import {BlogService} from '../services/blog.service';
 
 @Component({
     selector: 'blog-detail',
-    templateUrl: './blog-detail.component.html',
-    moduleId: module.id,
+    templateUrl: 'app/+blog/components/blog-detail.component.html',
 })
 
 export class BlogPostDetailComponent implements OnInit {

@@ -9,9 +9,8 @@ import {ROUTER_DIRECTIVES, RouteConfig, RouterOutlet} from 'angular2/router';
 
 @Component({
   selector: 'sd-albums',
-  moduleId: module.id,
-  templateUrl: './albums.component.html',
-  styleUrls: ['./albums.component.css'],
+  templateUrl: 'app/+albums/components/albums.component.html',
+  styleUrls: ['app/+albums/components/albums.component.css'],
   directives: [ROUTER_DIRECTIVES, RouterOutlet ],
   providers: [AlbumsService],
 })

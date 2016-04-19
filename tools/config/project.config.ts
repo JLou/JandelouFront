@@ -25,6 +25,5 @@ export class ProjectConfig extends SeedConfig {
       // {src: `${this.APP_DEST}/assets/scss/global.css`, inject: true},
       { src: `${this.ASSETS_SRC}/main.css`, inject: true },
     ];
-
   }
 }

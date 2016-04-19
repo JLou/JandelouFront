@@ -4,9 +4,8 @@ import {Album} from '../album';
 import {AlbumsService} from '../services/albums.service';
 
 @Component({
-    templateUrl: './album-list.component.html',
+    templateUrl: 'app/+albums/components/album-list.component.html',
     providers: [AlbumsService],
-    moduleId: module.id,
     directives: [ROUTER_DIRECTIVES]
 })
 export class AlbumListComponent implements OnInit {

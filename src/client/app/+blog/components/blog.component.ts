@@ -7,8 +7,7 @@ import {BlogPostDetailComponent} from './blog-detail.component';
 
 @Component({
     selector: 'blog',
-    moduleId: module.id,
-    templateUrl: './blog.component.html',
+    templateUrl: 'app/+blog/components/blog.component.html',
     providers: [BlogService],
     directives: [ROUTER_DIRECTIVES, RouterOutlet ]
 })
