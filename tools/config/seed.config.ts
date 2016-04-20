@@ -134,6 +134,11 @@ export class SeedConfig {
               'main': 'dist/materialize-directive',
               'defaultExtension': 'js'
           }
+      },
+      map: {
+          'materialize-css': 'materialize-css',
+          'materialize': 'angular2-materialize',
+          'angular2-materialize': 'angular2-materialize'
       }
     };
 

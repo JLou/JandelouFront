@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import {MaterializeDirective} from 'angular2-materialize';
 
 @Component({
@@ -8,4 +8,10 @@ import {MaterializeDirective} from 'angular2-materialize';
   styleUrls: ['app/components/navbar.component.css'],
   directives: [ROUTER_DIRECTIVES, MaterializeDirective]
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  router: Router;
+
+  constructor(router: Router) {
+    this.router = router;
+  }
+}
